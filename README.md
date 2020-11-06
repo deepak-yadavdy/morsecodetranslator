@@ -1,12 +1,10 @@
 # morsecode translator python project
 
 
-+-------------------+---------+----------+
-|       Name        | Roll no |  Reg no  |
-+-------------------+---------+----------+
-| Punit             |      18 | 11903088 |
-| Sumit Kumar Singh |      14 | 11903949 |
-| Deepak Yadav      |      13 | 11903907 |
-+-------------------+---------+----------+
+| Name  | Roll no  | Reg no |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
 
 
