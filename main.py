@@ -2,17 +2,19 @@
 # CREATED BY PUNIT, SUMIT, DEEPAK
 # SUBMITED TO GAGANDEEP KAUR
 # PROJECT = INT213 (Python Programming)
-
 from tkinter import *
 from tkinter import messagebox
 import tkinter.font as tkfont
+
 root = Tk() 
 
-bgphoto = PhotoImage(file = r"C:\\Users\\hacke\Desktop\\pythonproject\\Gradientblue.png")
-infophoto = PhotoImage(file = r"C:\\Users\\hacke\Desktop\\pythonproject\\info.png")
-exitphoto = PhotoImage(file = r"C:\\Users\\hacke\Desktop\\pythonproject\\EXIT.png")
 
+#define a photo object
+bgphoto = PhotoImage(file = "Images//Gradientblue.png")
+infophoto = PhotoImage(file = "Images//info.png")
+exitphoto = PhotoImage(file = "Images//EXIT.png")
 
+	
 # Dictionary representing the morse code chart 
 MORSE_CODE_DICT = { 'A':'.-', 'B':'-...', 
 					'C':'-.-.', 'D':'-..', 'E':'.', 
@@ -30,31 +32,38 @@ MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
 					'?':'..--..', '/':'-..-.', '-':'-....-', 
 					'(':'-.--.', ')':'-.--.-'} 
 
- 
 def clearAll() : 
-	 
 	language1_field.delete(1.0, END) 
+
+	language2_field.configure(state = NORMAL)
 	language2_field.delete(1.0, END) 
+	language2_field.configure(state = DISABLED)
 
 def convert() : 
 	message = language1_field.get("1.0", "end")[:-1] 
-
-	language2_field.insert('end -1 chars', encrypt(message.upper()))
 	
+	language2_field.configure(state = NORMAL)
+	language2_field.insert('end -1 chars',encrypt(message.upper()))
+	language2_field.configure(state = DISABLED)
+
 def convert2() : 
+	
 	message = language1_field.get("1.0", "end")[:-1] 
-
-	language2_field.insert('end -1 chars', decrypt(message))
-
+	
+	language2_field.configure(state = NORMAL)
+	language2_field.insert('end -1 chars',decrypt(message))
+	language2_field.configure(state = DISABLED)
+	
+		
+# Function to encrypt the string 
+# according to the morse code chart 
 def encrypt(message): 
 	cipher = '' 
 	for letter in message: 
 		if letter != ' ': 
-	
 			# morse codes for different characters 
 			cipher += MORSE_CODE_DICT[letter] + ' '
 		else: 
-
 			cipher += ' '
 	
 	return cipher 
@@ -63,7 +72,7 @@ def encrypt(message):
 # from morse to english 
 def decrypt(message): 
 	
-	
+	# extra space added at the end to access the 
 	# last morse code 
 	message += ' '
 	
@@ -82,22 +91,23 @@ def decrypt(message):
 	
 		# in case of space 
 		else: 
-			
+			# if i = 1 that indicates a new character 
 			i += 1
 	
-			
-			if i == 2 : 
+			# if i = 2 that indicates a new word 
+			if i >= 2 : 
 	
 				# adding space to separate words 
 				decipher += ' '
 			else: 
 	
-				
+				# accessing the keys using their values 
+				# (reverse of encryption) 
 				decipher += list(MORSE_CODE_DICT.keys())[ 
 							list(MORSE_CODE_DICT .values()).index(citext)] 
 				citext = '' 
 	
-	return decipher.lower()
+	return decipher 
 
 
 def openEnc():
@@ -109,11 +119,12 @@ def openEnc():
 	toplabel1.grid(row = 0, column = 0,) 		
 
 	global language1_field,language2_field
-	language1_field = Text(encWindow, height = 5, width = 25, font = "orbitron") 
-	language2_field = Text(encWindow, height = 5, width = 25, font = "orbitron")
+	language1_field = Text(encWindow, height = 5, width = 25, font = ("orbitron",15,"bold"), relief = "sunken", borderwidth = 10) 
+	language2_field = Text(encWindow, height = 5, width = 25, font = ("orbitron",15,"bold"), relief = "sunken", borderwidth = 10, state = DISABLED)
+
 									
 	language1_field.grid(row = 1, column = 0, pady=30) 
-	language2_field.grid(row = 2, column = 0, ) 
+	language2_field.grid(row = 2, column = 0) 
 
 	clrbutton = Button(encWindow, text = "CLEAR", width = 10, height = 2, bg = "grey", 
 					fg = "black", command = clearAll, font=("orbitron",10,"bold"),relief="raised",bd=5) 
@@ -134,8 +145,8 @@ def openDrcy():
 	toplabel1.grid(row = 0, column = 0,) 		
 
 	global language1_field,language2_field
-	language1_field = Text(drcyWindow, height = 5, width = 25, font = "orbitron") 
-	language2_field = Text(drcyWindow, height = 5, width = 25, font = "orbitron")
+	language1_field = Text(drcyWindow, height = 5, width = 25, font = ("orbitron",15,"bold"), relief = "sunken", bd = 10) 
+	language2_field = Text(drcyWindow, height = 5, width = 25, font = ("orbitron",15,"bold") ,relief = "sunken", bd = 10, state = DISABLED)
 									
 	language1_field.grid(row = 1, column = 0, pady=30) 
 	language2_field.grid(row = 2, column = 0, ) 
@@ -209,5 +220,5 @@ if __name__ == "__main__" :
 					fg = "white", command = close, font=("orbitron",10,"bold"),relief="sunken",bd=5) 
 	button4.grid(row =5, column = 2)
 	
-
+	# Start the GUI 
 	root.mainloop() 
